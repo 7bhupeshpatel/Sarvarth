@@ -21,8 +21,7 @@ const Button: FC<ButtonProps> = ({
     const baseClasses = `
     w-[178px] h-[48px] px-5 py-3 rounded-md text-base font-semibold
     flex flex-wrap items-center justify-center gap-2 text-center
-    whitespace-normal transition duration-200
-  `;
+    whitespace-normal transition duration-200 `;
     
     let stateClasses = "";
 

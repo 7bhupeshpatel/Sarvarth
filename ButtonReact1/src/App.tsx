@@ -1,18 +1,33 @@
-import  { useState } from "react";
+import   { useState } from "react";
 import Button from "./Components/Button";
+import Dashboard from "./Components/TabName";
+
+  
+    <div>
+
+      <Dashboard />
+    </div>
+
 
 
 const typeStyles = ["primary", "secondary", "tertiary", "outlined", "link"] as const;
+
+
+
 function App() {
   
-
+   
+  
    const [selectedType, setSelectedType] = useState<typeof typeStyles[number]>("primary")
   const [isDestructive, setIsDestructive] = useState(false);
   const [isDisabled, setIsDisabled] = useState(false);
   
   
   return (
-<div className="flex flex-wrap flex-col gap-10 justify-center items-center mt-16">
+
+    
+    <div className="flex flex-wrap flex-col gap-10 justify-center items-center mt-16">
+      <Dashboard/>
       <Button typeStyle = {selectedType} destructive = {isDestructive} disabled = {isDisabled}>
         Button CTA 
       </Button>
