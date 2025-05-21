@@ -1,5 +1,5 @@
-import  { FC } from "react";
-import { ReactNode } from "react";
+import type { FC } from "react";
+import  type { ReactNode } from "react";
 import { FaRegSquare } from "react-icons/fa";
 
 type ButtonTypes = "primary" | "secondary" | "tertiary" | "outlined" | "link";
