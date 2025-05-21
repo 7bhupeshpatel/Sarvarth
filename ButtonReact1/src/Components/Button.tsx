@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import  { FC } from "react";
 import { ReactNode } from "react";
 import { FaRegSquare } from "react-icons/fa";
 
@@ -55,9 +55,9 @@ const Button: FC<ButtonProps> = ({
     }
 
     return (
-         <button disabled={disabled} type="button" className={`${baseClasses} ${stateClasses}`}>
+         <button disabled={disabled} type="button" className= {`${baseClasses} ${stateClasses}`}>
                     <FaRegSquare className="w-20px h-20px opacity-75 " />
-                    Button CTA
+                  {children} 
                     <FaRegSquare className="w-20px h-20px opacity-75 " />
                 </button>
     )

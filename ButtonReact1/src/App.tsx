@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import Button from "./Components/Button";
 
 
@@ -14,7 +14,7 @@ function App() {
   return (
 <div className="flex flex-wrap flex-col gap-10 justify-center items-center mt-16">
       <Button typeStyle = {selectedType} destructive = {isDestructive} disabled = {isDisabled}>
-        Button CTA ({selectedType} {isDestructive ? " - destructive" : ""} {isDisabled ? "- disabled" : ""})
+        Button CTA 
       </Button>
 
       {/* Drop dwon menu */}
