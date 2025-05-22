@@ -1,16 +1,13 @@
 import   { useState } from "react";
-import Button from "./Components/Button";
+import Button, { ButtonType } from "./Components/Button";
 import Dashboard from "./Components/TabName";
 
   
-    <div>
-
-      <Dashboard />
-    </div>
+   
 
 
 
-const typeStyles = ["primary", "secondary", "tertiary", "outlined", "link"] as const;
+const buttonTypes = Object.values(ButtonType);
 
 
 
@@ -18,27 +15,32 @@ function App() {
   
    
   
-   const [selectedType, setSelectedType] = useState<typeof typeStyles[number]>("primary")
+  const [selectedType, setSelectedType] = useState<ButtonType>(ButtonType.Primary);
   const [isDestructive, setIsDestructive] = useState(false);
   const [isDisabled, setIsDisabled] = useState(false);
+   const [showLeftIcon, setShowLeftIcon] = useState(true);
+  const [showRightIcon, setShowRightIcon] = useState(true);
   
   
   return (
 
     
     <div className="flex flex-wrap flex-col gap-10 justify-center items-center mt-16">
+    
       <Dashboard/>
-      <Button typeStyle = {selectedType} destructive = {isDestructive} disabled = {isDisabled}>
-        Button CTA 
+      
+      <Button typeStyle = {selectedType} destructive = {isDestructive} disabled = {isDisabled}   showLeftIcon={showLeftIcon}
+        showRightIcon={showRightIcon}>
+        Button CTA
       </Button>
 
       {/* Drop dwon menu */}
       <select
         value={selectedType}
-        onChange={(e) => setSelectedType(e.target.value as typeof typeStyles[number])}
+        onChange={(e) => setSelectedType(e.target.value as ButtonType)}
         className="px-4 py-2 border rounded"
       >
-        {typeStyles.map((style) => (
+        {buttonTypes.map((style) => (
           <option key={style} value={style}>
             {style}
           </option>
@@ -65,6 +67,28 @@ function App() {
           className="accent-gray-500"
         />
         Disabled
+      </label>
+
+       {/* Toggle showLeftIcon */}
+      <label className="flex items-center gap-2 cursor-pointer">
+        <input
+          type="checkbox"
+          checked={showLeftIcon}
+          onChange={() => setShowLeftIcon((prev) => !prev)}
+          className="accent-blue-500"
+        />
+        Show Left Icon
+      </label>
+
+       {/* Toggle showRightIcon */}
+      <label className="flex items-center gap-2 cursor-pointer">
+        <input
+          type="checkbox"
+          checked={showRightIcon}
+          onChange={() => setShowRightIcon((prev) => !prev)}
+          className="accent-blue-500"
+        />
+        Show Right Icon
       </label>
     </div>
   );

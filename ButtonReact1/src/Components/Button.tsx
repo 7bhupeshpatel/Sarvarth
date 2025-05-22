@@ -1,65 +1,76 @@
+/* eslint-disable react-refresh/only-export-components */
+ 
 import type { FC } from "react";
-import  type { ReactNode } from "react";
 import { FaRegSquare } from "react-icons/fa";
 
-type ButtonTypes = "primary" | "secondary" | "tertiary" | "outlined" | "link";
 
-interface ButtonProps{
-  disabled?: boolean;
-  typeStyle?: ButtonTypes;
-  destructive?: boolean;
-  children: ReactNode;
+export enum ButtonType {
+  Primary = "primary",
+  Secondary = "secondary",
+  Tertiary = "tertiary",
+  Outlined = "outlined",
+  Link = "link",
 }
 
-const Button: FC<ButtonProps> = ({
-  disabled = false,
-  typeStyle = "primary",
-  destructive = false,
-  children,
-}) => {
+export enum ButtonStateClass {
+  Disabled = "bg-slate-300 text-white hover:bg-slate-200 hover:text-white active:bg-[#A5B4FC]",
+}
 
-    const baseClasses = `
+interface ButtonProps {
+     disabled?: boolean;
+     typeStyle?: ButtonType;
+     destructive?: boolean;
+     children: string;
+     showLeftIcon?: boolean;
+     showRightIcon?: boolean;
+}
+
+ const baseClasses = `
     w-[178px] h-[48px] px-5 py-3 rounded-md text-base font-semibold
     flex flex-wrap items-center justify-center gap-2 text-center
     whitespace-normal transition duration-200 `;
+
+    const stateClassMap: Record<ButtonType, string> = {
+  [ButtonType.Primary]: "bg-[#6366F1] text-white hover:bg-[#4F46E5] active:bg-[#4F46E5]",
+  [ButtonType.Secondary]: "bg-[#EEF2FF] text-blue-400 hover:bg-[#E0E7FF] active:bg-[#E0E7FF]",
+  [ButtonType.Tertiary]: "bg-transparent text-black border border-gray-700 hover:bg-white active:opacity-90",
+  [ButtonType.Outlined]: "bg-transparent text-blue-500 border border-blue-500 hover:bg-transparent active:bg-blue-100",
+  [ButtonType.Link]: "bg-transparent text-blue-500 border border-none hover:text-blue-600 active:opacity-90",
+};
+
+const destructiveClassMap: Record<ButtonType, string> = {
+  [ButtonType.Primary]: "bg-[#EF4444] text-white hover:bg-[#DC2626] active:bg-[#DC2626]",
+  [ButtonType.Secondary]: "bg-[#FEF2F2] text-red-500 hover:bg-[#FEE2E2] active:bg-[#FEE2E2]",
+  [ButtonType.Tertiary]: "bg-transparent text-red-500 border border-red-200 hover:bg-red-100 active:bg-red-100",
+  [ButtonType.Outlined]: "bg-transparent text-red-500 border border-red-200 hover:bg-transparent active:opacity-95",
+  [ButtonType.Link]: "bg-transparent text-red-500 border border-none hover:bg-transparent active:opacity-95",
+};
+
+const Button: FC<ButtonProps> = ({
+     disabled = false,
+     typeStyle = ButtonType.Primary,
+     destructive = false,
+     children,
+      showLeftIcon = true,
+     showRightIcon = true,
+}) => {
+
     
-    let stateClasses = "";
+     const stateClasses = disabled
+          ? ButtonStateClass.Disabled
+          : destructive
+               ? destructiveClassMap[typeStyle]
+               : stateClassMap[typeStyle];
 
-    if (disabled) {
-        stateClasses = "bg-[#A5B4FC] text-white hover:bg-[#A5B4FC] hover:text-white active:bg-[#A5B4FC]";
-    } else if (destructive && typeStyle === "primary") {
-        stateClasses = "bg-[#EF4444] text-white hover:bg-[#DC2626] active:bg-[#DC2626]";
-    } else if (destructive && typeStyle === "secondary") {
-        stateClasses = "bg-[#FEF2F2] text-red-500 hover:bg-[#FEE2E2] active:bg-[#FEE2E2]";
-    } else if (destructive && typeStyle == "tertiary") {
-        stateClasses = "bg-transparent text-red-500 border border-red-200 hover:bg-red-100 active:bg-red-100";
-    }
-    else if (destructive && typeStyle == "outlined") {
-        stateClasses = "bg-transparent text-red-500 border border-red-200 hover:bg-transparent active:opacity-95 ";
-    }
-    else if (destructive && typeStyle == "link") {
-        stateClasses = "bg-transparent text-red-500 border border-none hover:bg-transparent active:opacity-95 ";
-    }
-    else if (typeStyle === "primary") {
-        stateClasses = "bg-[#6366F1] text-white hover:bg-[#4F46E5] active:bg-[#4F46E5]";
-    } else if (typeStyle === "secondary") {
-        stateClasses = "bg-[#EEF2FF] text-blue-400  hover:bg-[#E0E7FF] active:bg-[#E0E7FF]";
-    } else if (typeStyle === "tertiary") {
-        stateClasses = "bg-transparent text-black border border-gray-700 hover:bg-white active:opacity-90";
-    } else if (typeStyle === "outlined") {
-        stateClasses = "bg-transparent text-blue-500 border border-blue-500 hover:bg-transparent active:bg-blue-100";
-    }
-    else if (typeStyle === "link") {
-        stateClasses = "bg-transparent text-blue-500 border border-none hover:text-blue-600 active:opacity-90";
-    }
+    
 
-    return (
-         <button disabled={disabled} type="button" className= {`${baseClasses} ${stateClasses}`}>
-                    <FaRegSquare className="w-20px h-20px opacity-75 " />
-                  {children} 
-                    <FaRegSquare className="w-20px h-20px opacity-75 " />
-                </button>
-    )
+     return (
+          <button disabled={disabled} type="button" className={`${baseClasses} ${stateClasses}`}>
+               {showLeftIcon && <FaRegSquare className="w-20px h-20px opacity-75 " />}
+               {children}
+               {showRightIcon && <FaRegSquare className="w-20px h-20px opacity-75 " />}
+          </button>
+     )
 }
 
 export default Button;
