@@ -1,36 +1,33 @@
-import   { useState } from "react";
-import Button, { ButtonType } from "./Components/Button";
+import { useState } from "react";
+import Button, { ButtonType, ButtonSize } from "./Components/Button";
 import Dashboard from "./Components/TabName";
-
-  
-   
-
 
 
 const buttonTypes = Object.values(ButtonType);
-
+const buttonSizes = Object.values(ButtonSize);
 
 
 function App() {
-  
-   
-  
+
+
+
   const [selectedType, setSelectedType] = useState<ButtonType>(ButtonType.Primary);
   const [isDestructive, setIsDestructive] = useState(false);
   const [isDisabled, setIsDisabled] = useState(false);
-   const [showLeftIcon, setShowLeftIcon] = useState(true);
+  const [showLeftIcon, setShowLeftIcon] = useState(true);
   const [showRightIcon, setShowRightIcon] = useState(true);
-  
-  
+  const [buttonSize, setButtonSize] = useState<ButtonSize>(ButtonSize.Large);
+
+
   return (
 
-    
+
     <div className="flex flex-wrap flex-col gap-10 justify-center items-center mt-16">
-    
-      <Dashboard/>
-      
-      <Button typeStyle = {selectedType} destructive = {isDestructive} disabled = {isDisabled}   showLeftIcon={showLeftIcon}
-        showRightIcon={showRightIcon}>
+
+      <Dashboard />
+
+      <Button typeStyle={selectedType} destructive={isDestructive} disabled={isDisabled} showLeftIcon={showLeftIcon}
+        showRightIcon={showRightIcon} size = {buttonSize}>
         Button CTA
       </Button>
 
@@ -47,6 +44,22 @@ function App() {
         ))}
       </select>
 
+      
+      {/* Size Selector (Segmented Toggle) */}
+      <div className="flex gap-2">
+        {buttonSizes.map((s) => (
+          <button
+            key={s}
+            onClick={() => setButtonSize(s)}
+            className={`px-4 py-2 border rounded capitalize transition-all ${
+              buttonSize === s ? "bg-blue-500 text-white" : "bg-white text-black"
+            }`}
+          >
+            {s}
+          </button>
+        ))}
+      </div>
+
       {/* Toggle Switch for destructive */}
       <label className="flex items-center gap-2 cursor-pointer">
         <input
@@ -56,9 +69,9 @@ function App() {
           className="accent-red-500"
         />
         Destructive Mode
-        
+
       </label>
-       {/* Toggle switch for disabled */}
+      {/* Toggle switch for disabled */}
       <label className="flex items-center gap-2 cursor-pointer">
         <input
           type="checkbox"
@@ -69,7 +82,7 @@ function App() {
         Disabled
       </label>
 
-       {/* Toggle showLeftIcon */}
+      {/* Toggle showLeftIcon */}
       <label className="flex items-center gap-2 cursor-pointer">
         <input
           type="checkbox"
@@ -80,7 +93,7 @@ function App() {
         Show Left Icon
       </label>
 
-       {/* Toggle showRightIcon */}
+      {/* Toggle showRightIcon */}
       <label className="flex items-center gap-2 cursor-pointer">
         <input
           type="checkbox"
